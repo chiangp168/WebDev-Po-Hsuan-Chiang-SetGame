@@ -1,17 +1,26 @@
 import React from 'react';
 import './index.css';
+import {connect} from 'react-redux';
 
 
-export default class Card extends React.Component {
+class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clicked: false,
+            clicked: this.props.clicked
         }
     }
 
-    selectCard() {
-        this.setState({clicked: !this.state.clicked});
+    selectCard(e) {
+        if(!this.state.clicked) {
+            console.log("false")
+            this.props.countInt(e);
+            this.state.clicked = true;
+        } else {
+            console.log("true")
+            this.props.countDec(e);
+            this.state.clicked = false;
+        }
     }
 
     // checkCardNum() {
@@ -27,11 +36,7 @@ export default class Card extends React.Component {
     //         this.setState({clicked: !this.state.cliked})
     //     }
     // }
-
-
-    render() {
-        let styleClass = this.state.clicked ? "selectedCard" : "card";
-        
+    showCards() {
         const shape = [];
         if(this.props.shape === "circle" && this.props.shading === "solid") {
             for (let i = 0; i < this.props.count; i++) {
@@ -132,10 +137,19 @@ export default class Card extends React.Component {
                     </svg>)
             }
         }
+        return shape;
+        
+    }
+
+
+    render() {
+        let styleClass = this.state.clicked ? "selectedCard" : "card";
+        let shape = this.showCards();
+        
 
         return (
-            <div className="cardWrap">
-                <div className={styleClass} onClick={() => {this.selectCard();}}>
+            <div className="cardWrap" >
+                <div className={styleClass} onClick={(e) => {this.selectCard(e);}} identifier={this.props.i}>
                     {shape}
                 </div>
             </div>
@@ -143,3 +157,24 @@ export default class Card extends React.Component {
 
     }
 }
+
+let mapDispatchToProps = function(dispatch, props) {
+    return {
+        dispatch: dispatch,
+    }
+  }
+  
+let mapStateToProps = function(state, props) {
+return {
+    numOfSelectedCards: state.card.numOfSelectedCards,
+    currentDeck: state.card.currentDeck,
+    displayDeck: state.card.displayDeck,
+    selectedCards: state.card.selectedCards
+    
+}
+}
+
+export default connect(
+mapStateToProps,
+mapDispatchToProps
+)(Card)

@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import { createStore } from "redux";
 import { Provider } from 'react-redux';
-import Card from './Card';
+import Reducers from './Reducers';
+
+const store = createStore(Reducers)
 
 ReactDOM.render(
-  // <Provider store={store}>
-  <App />,
-  // </Provider>,
+  <Provider store={store}>
+    <App />,
+  </Provider>,
   document.getElementById('root')
 );
