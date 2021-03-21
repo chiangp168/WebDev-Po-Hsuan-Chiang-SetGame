@@ -2,7 +2,8 @@ export default function CardReducer(state= {
     numOfSelectedCards: 0,
     currentDeck: [],
     displayDeck: [],
-    selectedCards: []
+    keepSelecting: true,
+    selectedCards: new Set([])
 }, action) {
     if (action.type === "createDeck") {
         let allCircles = [];
@@ -34,31 +35,51 @@ export default function CardReducer(state= {
         return{...state, currentDeck: allCircles}
     } else if (action.type === "incrementCount") {
         // let id = e.currentTarget.getAttribute('identifier');
+        // if(newCount === 3) {
+        //     newCount = 0;
+        //     newDeck.forEach(card => card.selected = false);
+        //     newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
+        //     newSelectedCards = []
+        // }
         let newCard = state.currentDeck.find(card => {return card.id === Number(action.value)});
-        console.log(state.numOfSelectedCards)
+        newCard.selected = true;
+        console.log(newCard.id)
         console.log(state.selectedCards)
+        let newSelectedCards = new Set([])
+        console.log(newSelectedCards)
+        for(let value of state.selectedCards){newSelectedCards.add(value)}
+        newSelectedCards.add(Number(action.value))
+        console.log(newSelectedCards)
+        let newCount = state.numOfSelectedCards + 1
+        let newDeck = [...state.currentDeck]
+        if(newCount === 4) {
+            newCount = 0;
+            newDeck.forEach(card => card.selected = false);
+            // newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
+            newSelectedCards = []
+        }
         return {
             ...state,
-            numOfSelectedCards: state.numOfSelectedCards + 1,
-            selectedCards: [...state.selectedCards, newCard]
+            numOfSelectedCards: newCount,
+            selectedCards: newSelectedCards,
+            currentDeck: newDeck
         }
         
     } else if (action.type === "decrementCount"){
-        console.log(state.numOfSelectedCards)
-        console.log(state.selectedCards)
+        let newCard = state.currentDeck.find(card => {return card.id === Number(action.value)});
+        newCard.selected = false;
+        let newSelectedCards = new Set(state.selectedCards)
+        newSelectedCards.delete(Number(action.value))
         return {
             ...state,
             numOfSelectedCards: state.numOfSelectedCards - 1,
-            selectedCards: state.selectedCards.filter(card => card.id !== Number(action.value))
+            selectedCards: newSelectedCards
         } 
-    } else if (action.type === "checkCardCount") {
-        let newDeck = [...state.currentDeck]
-        newDeck.forEach(card => card.selected = false)
-        console.log("hi")
-        console.log(state.currentDeck)
-        return {
-            ...state,
-            currentDeck: newDeck
+    } else if (action.type === "checkCount"){
+        if(state.numOfSelectedCards === 3) {
+            let newDeck = [...state.currentDeck]
+            newDeck.forEach(card => card.selected = false);
+            // newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
         }
     }
     return state

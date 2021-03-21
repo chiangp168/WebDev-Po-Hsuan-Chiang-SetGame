@@ -17,6 +17,17 @@ code {
   white-space: nowrap;
 }
 
+.CardContainer {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black
+}
+
+.CardContainer > *{
+  margin: 5px 5px;
+}
+
 .cardWrap {
   width: 320px;
   height: 150px;
@@ -25,7 +36,7 @@ code {
 .card {
   width: 320px;
   height: 150px;
-  margin: 10px 10px 10px 10px;
+  /* margin: 10px 10px 10px 10px; */
   border: 2px solid grey;
   display: flex;
   align-items: center;
@@ -39,7 +50,7 @@ code {
 .selectedCard {
   width: 320px;
   height: 150px;
-  margin: 5px 5px 5px 5px;
+  /* margin: 5px 5px 5px 5px; */
   border: 2px solid grey;
   background-color: rgba(228, 225, 225, 0.849);
   display: flex;

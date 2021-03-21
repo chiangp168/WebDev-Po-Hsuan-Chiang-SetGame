@@ -25,27 +25,29 @@ class App extends React.Component {
     })
   }
 
-  componentDidUpdate() {
-    if(this.props.numOfSelectedCards === 3) {
-      this.props.dispatch({type: "checkCardCount"})
-      console.log("hit three")
-    }
-  }
-
   componentDidMount() {
     this.props.dispatch({type: "createDeck"})
   }
+
+  checkCount() {
+    this.props.dispatch({type: "checkCount"})
+  }
+
+
   
 
   render () {
-    const oneValue = this.props.currentDeck.map((oneCard, index) => {
+    let size = 12;
+    const oneValue = this.props.currentDeck.slice(0, size).map((oneCard, index) => {
       return (
-          <Card shape={oneCard.shape} color={oneCard.color} shading={oneCard.shading} count={oneCard.count} key={oneCard.id} countInt={(e) => this.incrementCount(e)} countDec={(e) => this.decrementCount(e)} cardCount={this.props.numOfSelectedCards} i={oneCard.id} clicked={oneCard.selected}/>
+          <Card shape={oneCard.shape} color={oneCard.color} shading={oneCard.shading} count={oneCard.count} key={oneCard.id} countInt={(e) => this.incrementCount(e)} countDec={(e) => this.decrementCount(e)} cardCount={this.props.numOfSelectedCards} i={oneCard.id} clicked={oneCard.selected} checkCount={() => this.checkCount()}/>
       )
   })
     return (
       <div className="AppContainer">
-        {oneValue}
+        <div className='CardContainer'>
+          {oneValue}
+        </div>
       </div>
     );
   }

@@ -6,36 +6,23 @@ import {connect} from 'react-redux';
 class Card extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            clicked: this.props.clicked
-        }
+        // this.state = {
+        //     clicked: this.props.clicked
+        // }
     }
 
     selectCard(e) {
-        if(!this.state.clicked) {
+        if(!this.props.clicked) {
             console.log("false")
             this.props.countInt(e);
-            this.state.clicked = true;
+            // this.state.clicked = true;
         } else {
             console.log("true")
             this.props.countDec(e);
-            this.state.clicked = false;
+            // this.state.clicked = false;
         }
     }
 
-    // checkCardNum() {
-    //     if(!this.state.clicked) {
-    //         if(this.props.cardCount < 3) {
-    //             this.props.countInt();
-    //             this.setState({clicked: !this.state.cliked})
-    //         } else {
-    //             this.setState({clicked: false})
-    //         }
-    //     } else{
-    //         this.props.countDec();
-    //         this.setState({clicked: !this.state.cliked})
-    //     }
-    // }
     showCards() {
         const shape = [];
         if(this.props.shape === "circle" && this.props.shading === "solid") {
@@ -143,7 +130,9 @@ class Card extends React.Component {
 
 
     render() {
-        let styleClass = this.state.clicked ? "selectedCard" : "card";
+        let styleClass = this.props.clicked ? "selectedCard" : "card";
+        // let canSelect = this.props.keepSelecting? null : this.props.checkCount();
+        // this.props.checkCount();
         let shape = this.showCards();
         
 
