@@ -3,7 +3,9 @@ export default function CardReducer(state= {
     currentDeck: [],
     displayDeck: [],
     keepSelecting: true,
-    selectedCards: new Set([])
+    selectedCards: new Set([]),
+    gameLevel: 1,
+    url: "/"
 }, action) {
     if (action.type === "createDeck") {
         let allCircles = [];
@@ -52,10 +54,28 @@ export default function CardReducer(state= {
         console.log(newSelectedCards)
         let newCount = state.numOfSelectedCards + 1
         let newDeck = [...state.currentDeck]
-        if(newCount === 4) {
+        if(newCount === 3) {
             newCount = 0;
+            let cardsToCheck = newDeck.filter(card => newSelectedCards.has(card.id))
+            let card1 = cardsToCheck[0];
+            let card2 = cardsToCheck[1];
+            let card3 = cardsToCheck[2];
+            let isSet = ((card1.color === card2.color && card2.color === card3.color && card3.color === card1.color) || 
+                        (card1.color !== card2.color && card2.color !== card3.color && card3.color !== card1.color))
+                        &&
+                        ((card1.shape === card2.shape && card2.shape === card3.shape && card3.shape === card1.shape) ||
+                        (card1.shape !== card2.shape && card2.shape !== card3.shape && card3.shape !== card1.shape)) 
+                        &&
+                        ((card1.count === card2.count && card2.count === card3.count && card3.count === card1.count) ||
+                        (card1.count !== card2.count && card2.count !== card3.count && card3.count !== card1.count))
+                        && 
+                        ((card1.shading === card2.shading && card2.shading === card3.shading && card3.shading === card1.shading) ||
+                        (card1.shading !== card2.shading && card2.shading !== card3.shading && card3.shading !== card1.shading))
+            if(isSet) {
+                newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
+            }
+
             newDeck.forEach(card => card.selected = false);
-            // newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
             newSelectedCards = []
         }
         return {
@@ -75,7 +95,21 @@ export default function CardReducer(state= {
             numOfSelectedCards: state.numOfSelectedCards - 1,
             selectedCards: newSelectedCards
         } 
-    } else if (action.type === "checkCount"){
+    } else if (action.type === "setGameLevel"){
+        let game = 1
+        if(action.value === 1) {
+            game = 1 
+        } else if(action.value === 2){
+            game = 2
+        } else {
+            game = 3
+        }
+        return {
+            ...state,
+            gameLevel: game
+        }
+
+    }else if (action.type === "checkCount"){
         if(state.numOfSelectedCards === 3) {
             let newDeck = [...state.currentDeck]
             newDeck.forEach(card => card.selected = false);
