@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from './Card';
 import {connect} from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './Navbar';
 
 
 
@@ -33,18 +35,26 @@ class App extends React.Component {
     this.props.dispatch({type: "checkCount"})
   }
 
+  // determineSize() {
+  //   this.props.dispatch({type: "decideSize"})
+  // }
+
 
   
 
   render () {
-    let size = 12;
+    let size = this.props.displaySize;
+    let c = this.props.numOfSelectedCards;
+    console.log(size)
+    console.log(c)
     const oneValue = this.props.currentDeck.slice(0, size).map((oneCard, index) => {
       return (
-          <Card shape={oneCard.shape} color={oneCard.color} shading={oneCard.shading} count={oneCard.count} key={oneCard.id} countInt={(e) => this.incrementCount(e)} countDec={(e) => this.decrementCount(e)} cardCount={this.props.numOfSelectedCards} i={oneCard.id} clicked={oneCard.selected} checkCount={() => this.checkCount()}/>
+          <Card design={oneCard.design} key={oneCard.id} countInt={(e) => this.incrementCount(e)} countDec={(e) => this.decrementCount(e)} cardCount={this.props.numOfSelectedCards} i={oneCard.id} clicked={oneCard.selected} checkCount={() => this.checkCount()}/>
       )
   })
     return (
       <div className="AppContainer">
+        <Navbar/>
         <div className='CardContainer'>
           {oneValue}
         </div>
@@ -64,7 +74,8 @@ let mapStateToProps = function(state, props) {
     numOfSelectedCards: state.card.numOfSelectedCards,
     currentDeck: state.card.currentDeck,
     displayDeck: state.card.displayDeck,
-    selectedCards: state.card.selectedCards
+    selectedCards: state.card.selectedCards,
+    displaySize: state.card.displaySize
       
   }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './Navbar';
 
 class LandingPage extends React.Component {
     constructor(props) {
@@ -34,44 +36,94 @@ class LandingPage extends React.Component {
         if(this.props.gameLevel === 1) {
             return (
                 <div>
-                    <button onClick={() => this.gameLevel(1)}>Easy</button>
-                    <button onClick={() => this.gameLevel(2)}>Medium</button>
-                    <button onClick={() => this.gameLevel(3)}>Hard</button>
-                    <Link to="/game">
-                        <button>
-                        Play!
-                        </button>
-                    </Link>
+                    <Navbar/>
+                    <div className="header">
+                        <h1>Choose Game Level</h1>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(1)}>Easy</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(2)}>Medium</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(3)}>Hard</button>
+                        </div>
+                    </div>
+                    <div className="header">
+                        <h3>You have selected {easy}</h3>
+                    </div>
+                    <div className="header">
+                        <Link to="/game">
+                            <button type="button" class="btn btn-outline-dark">
+                            Play!
+                            </button>
+                        </Link>
+                    </div>
                     
-                    <h1>You have selected {easy}</h1>
                 </div>
             )
         } else if(this.props.gameLevel === 2) {
             return (
                 <div>
-                    <button onClick={() => this.gameLevel(1)}>Easy</button>
-                    <button onClick={() => this.gameLevel(2)}>Medium</button>
-                    <button onClick={() => this.gameLevel(3)}>Hard</button>
-                    <Link to="/game">
-                        <button>
-                        Play!
-                        </button>
-                    </Link>
-                    <h1>You have selected {medium}</h1>
+                    <Navbar/>
+                    <div className="header">
+                        <h1>Choose Game Level</h1>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(1)}>Easy</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(2)}>Medium</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(3)}>Hard</button>
+                        </div>
+                    </div>
+                    <div className="header">
+                        <h3>You have selected {medium}</h3>
+                    </div>
+                    <div className="header">
+                        <Link to="/game">
+                            <button type="button" class="btn btn-outline-dark">
+                            Play!
+                            </button>
+                        </Link>
+                    </div>
+                    
                 </div>
             )
         } else {
             return (
                 <div>
-                    <button onClick={() => this.gameLevel(1)}>Easy</button>
-                    <button onClick={() => this.gameLevel(2)}>Medium</button>
-                    <button onClick={() => this.gameLevel(3)}>Hard</button>
-                    <Link to="/game">
-                        <button>
-                        Play!
-                        </button>
-                    </Link>
-                    <h1>You have selected {hard}</h1>
+                    <Navbar/>
+                    <div className="header">
+                        <h1>Choose Game Level</h1>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(1)}>Easy</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(2)}>Medium</button>
+                        </div>
+                        <div className="p-2">
+                            <button type="button" className="btn btn-outline-dark" onClick={() => this.gameLevel(3)}>Hard</button>
+                        </div>
+                    </div>
+                    <div className="header">
+                        <h3>You have selected {hard}</h3>
+                    </div>
+                    <div className="header">
+                        <Link to="/game">
+                            <button type="button" class="btn btn-outline-dark">
+                            Play!
+                            </button>
+                        </Link>
+                    </div>
+                    
                 </div>
             )
         }

@@ -5,7 +5,8 @@ export default function CardReducer(state= {
     keepSelecting: true,
     selectedCards: new Set([]),
     gameLevel: 1,
-    url: "/"
+    url: "/",
+    displaySize: 12,
 }, action) {
     if (action.type === "createDeck") {
         let allCircles = [];
@@ -14,26 +15,248 @@ export default function CardReducer(state= {
         let shadings = ["solid", "empty", "stripe"];
         let nums = [1, 2, 3]
         let id = 0;
+        if(state.gameLevel === 1) {
+            for(let i = 0; i < shapes.length; i++) {
+                for(let j = 0; j < colors.length; j++) {
+                    for(let k = 0; k < shadings.length; k++) {
+                        let count = 1;
+                        let shading = shadings[k]
+                        let color = colors[j]
+                        let shape = shapes[i]
+                        const patterns = [];
+                        if(shape === "circle" && shading === "solid") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 50 50">
+                                        <circle cx="50%" cy="50%" r="23" stroke={color} fill={color}/>
+                                    </svg>)
+                            }
+                        } else if(shape === "circle" && shading === "empty") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 50 50">
+                                        <circle cx="50%" cy="50%" r="23" stroke={color} fill="none"/>
+                                    </svg>)
+                            }
+                        } else if(shape === "circle" && shading === "stripe") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    // this pattern is reference from https://codepen.io/chriscoyier/pen/BmJdrY
+                                    <svg viewBox="0 0 50 50">
+                                        <defs>
+                                            <pattern id="pattern-stripe" 
+                                            width="5" height="3" 
+                                            patternUnits="userSpaceOnUse"
+                                            patternTransform="rotate(45)">
+                                            <rect width="4" height="3" transform="translate(0,0)" fill="white"></rect>
+                                            </pattern>
+                                            <mask id="mask-stripe">
+                                            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                            </mask>      
+                                        </defs>
+                                        <circle cx="50%" cy="50%" r="23" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                    </svg>)
+                                    
+                            }
+                        } else if(shape === "triangle" && shading === "solid") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg id="triangle" viewBox="0 0 100 100">
+                                        <polygon points="50 0, 100 100, 0 100" stroke={color} fill={color}/>
+                                    </svg>)
+                            }
+                        } else if(shape === "triangle" && shading === "empty") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg id="triangle" viewBox="0 0 100 100">
+                                        <polygon points="50 0, 99 99, 0 99" stroke={color} strokeWidth="2" fill="none"/>
+                                    </svg>)
+                            }
+                        } else if(shape === "triangle" && shading === "stripe") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 50 50">
+                                        <defs>
+                                            <pattern id="pattern-stripe" 
+                                            width="4" height="4" 
+                                            patternUnits="userSpaceOnUse"
+                                            patternTransform="rotate(45)">
+                                            <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
+                                            </pattern>
+                                            <mask id="mask-stripe">
+                                            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                            </mask>      
+                                        </defs>
+                                        <polygon points="25 0, 50 50, 0 50" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                    </svg>)
+                            }
+                        } else if(shape === "square" && shading === "solid") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 100 100">
+                                        <rect x="0" y="0" width="100%" height="100%" stroke={color} fill={color}/>
+                                    </svg>)
+                            }
+                        } else if(shape === "square" && shading === "empty") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 100 100">
+                                        <rect x="0" y="0" width="100%" height="100%" stroke={color} strokeWidth="3" fill="none"/>
+                                    </svg>)
+                            }
+                        } else if(shape === "square" && shading === "stripe") {
+                            for (let i = 0; i < count; i++) {
+                                patterns.push(
+                                    <svg viewBox="0 0 50 50">
+                                        <defs>
+                                            <pattern id="pattern-stripe" 
+                                            width="4" height="4" 
+                                            patternUnits="userSpaceOnUse"
+                                            patternTransform="rotate(45)">
+                                            <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
+                                            </pattern>
+                                            <mask id="mask-stripe">
+                                            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                            </mask>      
+                                        </defs>
+                                        <rect x="0" y="0" width="100%" height="100%" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                    </svg>)
+                            }
+                        }
 
-        for(let i = 0; i < shapes.length; i++) {
-        for(let j = 0; j < colors.length; j++) {
-            for(let k = 0; k < shadings.length; k++) {
-            for(let l = 0; l < nums.length; l++) {
-                allCircles.push({count: nums[l], shading: shadings[k], color: colors[j], shape: shapes[i], selected: false, id: id});
-                id++;
+                        allCircles.push({design: patterns, selected: false, id: id});
+                        id++;
+                    }
+                }
             }
+
+        } else {
+            for(let i = 0; i < shapes.length; i++) {
+                for(let j = 0; j < colors.length; j++) {
+                    for(let k = 0; k < shadings.length; k++) {
+                        for(let l = 0; l < nums.length; l++) {
+                            let count = nums[l];
+                            let shading = shadings[k]
+                            let color = colors[j]
+                            let shape = shapes[i]
+                            const patterns = [];
+                            if(shape === "circle" && shading === "solid") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 50 50">
+                                            <circle cx="50%" cy="50%" r="23" stroke={color} fill={color}/>
+                                        </svg>)
+                                }
+                            } else if(shape === "circle" && shading === "empty") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 50 50">
+                                            <circle cx="50%" cy="50%" r="23" stroke={color} fill="none"/>
+                                        </svg>)
+                                }
+                            } else if(shape === "circle" && shading === "stripe") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        // this pattern is reference from https://codepen.io/chriscoyier/pen/BmJdrY
+                                        <svg viewBox="0 0 50 50">
+                                            <defs>
+                                                <pattern id="pattern-stripe" 
+                                                width="5" height="3" 
+                                                patternUnits="userSpaceOnUse"
+                                                patternTransform="rotate(45)">
+                                                <rect width="4" height="3" transform="translate(0,0)" fill="white"></rect>
+                                                </pattern>
+                                                <mask id="mask-stripe">
+                                                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                                </mask>      
+                                            </defs>
+                                            <circle cx="50%" cy="50%" r="23" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                        </svg>)
+                                        
+                                }
+                            } else if(shape === "triangle" && shading === "solid") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg id="triangle" viewBox="0 0 100 100">
+                                            <polygon points="50 0, 100 100, 0 100" stroke={color} fill={color}/>
+                                        </svg>)
+                                }
+                            } else if(shape === "triangle" && shading === "empty") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg id="triangle" viewBox="0 0 100 100">
+                                            <polygon points="50 0, 99 99, 0 99" stroke={color} strokeWidth="2" fill="none"/>
+                                        </svg>)
+                                }
+                            } else if(shape === "triangle" && shading === "stripe") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 50 50">
+                                            <defs>
+                                                <pattern id="pattern-stripe" 
+                                                width="4" height="4" 
+                                                patternUnits="userSpaceOnUse"
+                                                patternTransform="rotate(45)">
+                                                <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
+                                                </pattern>
+                                                <mask id="mask-stripe">
+                                                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                                </mask>      
+                                            </defs>
+                                            <polygon points="25 0, 50 50, 0 50" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                        </svg>)
+                                }
+                            } else if(shape === "square" && shading === "solid") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 100 100">
+                                            <rect x="0" y="0" width="100%" height="100%" stroke={color} fill={color}/>
+                                        </svg>)
+                                }
+                            } else if(shape === "square" && shading === "empty") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 100 100">
+                                            <rect x="0" y="0" width="100%" height="100%" stroke={color} strokeWidth="3" fill="none"/>
+                                        </svg>)
+                                }
+                            } else if(shape === "square" && shading === "stripe") {
+                                for (let i = 0; i < count; i++) {
+                                    patterns.push(
+                                        <svg viewBox="0 0 50 50">
+                                            <defs>
+                                                <pattern id="pattern-stripe" 
+                                                width="4" height="4" 
+                                                patternUnits="userSpaceOnUse"
+                                                patternTransform="rotate(45)">
+                                                <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
+                                                </pattern>
+                                                <mask id="mask-stripe">
+                                                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+                                                </mask>      
+                                            </defs>
+                                            <rect x="0" y="0" width="100%" height="100%" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                        </svg>)
+                                }
+                            }
+                            allCircles.push({design: patterns, selected: false, id: id});
+                            id++;
+                        }
+                    }
+                }
             }
-        }
+            
         }
 
         let totalCard = allCircles.length;
         for (let index = totalCard - 1; index > -1; index--) {
-        let card = Math.floor(Math.random() * totalCard);
-        let temp = allCircles[index]
-        allCircles[index] = allCircles[card]
-        allCircles[card] = temp
+            let card = Math.floor(Math.random() * totalCard);
+            let temp = allCircles[index]
+            allCircles[index] = allCircles[card]
+            allCircles[card] = temp
         }
-
+        
+        console.log(allCircles)
         return{...state, currentDeck: allCircles}
     } else if (action.type === "incrementCount") {
         // let id = e.currentTarget.getAttribute('identifier');
@@ -115,6 +338,7 @@ export default function CardReducer(state= {
             newDeck.forEach(card => card.selected = false);
             // newDeck = newDeck.filter(card => !newSelectedCards.has(card.id))
         }
+    // } 
     }
     return state
 }

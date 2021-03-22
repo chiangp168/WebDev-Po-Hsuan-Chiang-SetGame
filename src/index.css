@@ -21,7 +21,9 @@ code {
   width: 1000px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black
+  border: 1px solid black;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .CardContainer > *{
@@ -68,4 +70,19 @@ svg {
   width: 100px;
   height: 100px;
   margin:3px 3px 3px 3px;
+}
+
+.header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align:center;
+}
+
+h1 {
+  margin:0 auto;
+}
+
+.paragraph {
+  width: 70%;
+  margin: 30px auto;
 }
