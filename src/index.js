@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Game from './Game';
 import App from './App';
-import LandingPage from './LandingPage';
 import Rule from './Rule';
 import { createStore } from "redux";
 import { Provider } from 'react-redux';
@@ -15,8 +15,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route exact path={"/"} component={LandingPage}/>
-        <Route exact path={"/game"} component={App}/>
+        <Route exact path={"/"} component={App}/>
+        <Route exact path={"/game"} component={Game}/>
         <Route exact path={"/rule"} component={Rule}/>
       </Switch>
     </Router>

@@ -15,7 +15,7 @@ export default class Rule extends React.Component {
                         <h1>Game Rules</h1>
                 </div>
                 <div className="paragraph">
-                    <p className="lead">The goal of this game is to identify a 'Set' of three cards from the 12 cards displayed and until the whole deck of cards are finished. 
+                    <div className="lead">The goal of this game is to identify a 'Set' of three cards from the 12 cards displayed and until the whole deck of cards are finished. 
                         Each card has a variation of the following four features:
                         <div>
                             <ol>
@@ -26,13 +26,13 @@ export default class Rule extends React.Component {
                             </ol>
                         </div>
                         
-                    </p>
+                    </div>
                 </div>
                 <div className="header">
                     <h2>Game Difficulty Levels</h2>
                 </div>
                 <div className="paragraph">
-                    <p className="lead">There are 3 difficulty levels you can choose from:
+                    <div className="lead">There are 3 difficulty levels you can choose from:
                         <div>
                             <ul>
                                 <li>Easy: The cards will contain only 3 of the 4 features decribed above. There are 27 cards in the whole deck.</li>
@@ -42,7 +42,7 @@ export default class Rule extends React.Component {
                                 12 displayed cards.</li>
                             </ul>
                         </div>
-                    </p>
+                    </div>
                 </div>
             </div>
         );
