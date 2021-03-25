@@ -77,7 +77,9 @@ class Game extends React.Component {
           <div className="header">
             <h2>Congratulations! No more set possible!</h2>
           </div>
-          
+          <div className='cardContainer'>
+            {oneValue}
+          </div>
         </div>
       );
     }
