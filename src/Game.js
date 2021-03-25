@@ -61,6 +61,9 @@ class Game extends React.Component {
         <div className="AppContainer">
           <Navbar/>
           <FeatureBtn/>
+          <div className="header">
+            <h3>{this.props.message}</h3>
+          </div>
           <div className='CardContainer'>
             {oneValue}
           </div>
@@ -94,7 +97,8 @@ let mapStateToProps = function(state, props) {
     displayDeck: state.card.displayDeck,
     selectedCards: state.card.selectedCards,
     displaySize: state.card.displaySize,
-    gameFinished: state.card.gameFinished   
+    gameFinished: state.card.gameFinished,
+    message: state.card.message  
   }
 }
 

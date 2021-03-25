@@ -7,7 +7,8 @@ export default function CardReducer(state= {
     gameLevel: 1,
     url: "/",
     displaySize: 12,
-    gameFinished: false
+    gameFinished: false,
+    message: ""
 }, action) {
     if (action.type === "createDeck") {
         let allCircles = [];
@@ -30,14 +31,14 @@ export default function CardReducer(state= {
                             for (let i = 0; i < count; i++) {
                                 patterns.push(
                                     <svg viewBox="0 0 50 50" key={i}>
-                                        <circle cx="50%" cy="50%" r="23" stroke={color} fill={color}/>
+                                        <circle cx="50%" cy="50%" r="40%" stroke={color} fill={color}/>
                                     </svg>)
                             }
                         } else if(shape === "circle" && shading === "empty") {
                             for (let i = 0; i < count; i++) {
                                 patterns.push(
                                     <svg viewBox="0 0 50 50" key={i}>
-                                        <circle cx="50%" cy="50%" r="23" stroke={color} fill="none"/>
+                                        <circle cx="50%" cy="50%" r="40%" stroke={color} fill="none"/>
                                     </svg>)
                             }
                         } else if(shape === "circle" && shading === "stripe") {
@@ -56,7 +57,7 @@ export default function CardReducer(state= {
                                             <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
                                             </mask>      
                                         </defs>
-                                        <circle cx="50%" cy="50%" r="23" stroke={color} mask="url(#mask-stripe)" fill={color}/>
+                                        <circle cx="50%" cy="50%" r="40%" stroke={color} mask="url(#mask-stripe)" fill={color}/>
                                     </svg>)
                                     
                             }
@@ -64,7 +65,7 @@ export default function CardReducer(state= {
                             for (let i = 0; i < count; i++) {
                                 patterns.push(
                                     <svg id="triangle" viewBox="0 0 100 100" key={i}>
-                                        <polygon points="50 0, 100 100, 0 100" stroke={color} fill={color}/>
+                                        <polygon points="50 0, 99 99, 0 99" stroke={color} fill={color}/>
                                     </svg>)
                             }
                         } else if(shape === "triangle" && shading === "empty") {
@@ -263,7 +264,8 @@ export default function CardReducer(state= {
             ...state,
             currentDeck: allCircles,
             displaySize: 12,
-            gameFinished: false
+            gameFinished: false,
+            message: ""
         }
     } else if (action.type === "incrementCount") {
         let newCard = state.currentDeck.find(card => {return card.id === Number(action.value)});
@@ -311,7 +313,9 @@ export default function CardReducer(state= {
         let newCount = state.numOfSelectedCards
         let displayNumber = state.displaySize
         let newSelectedCards = state.selectedCards
+        let newMessage = state.message
         if(state.numOfSelectedCards === 3) {
+            newMessage = "It is not a set!"
             let cardsToCheck = newDeck.filter(card => state.selectedCards.has(card.id))
             let card1 = cardsToCheck[0];
             let card2 = cardsToCheck[1];
@@ -329,6 +333,7 @@ export default function CardReducer(state= {
                         (card1.features.cardShading !== card2.features.cardShading && card2.features.cardShading !== card3.features.cardShading && card3.features.cardShading !== card1.features.cardShading))
             if(isSet) {
                 newDeck = newDeck.filter(card => !state.selectedCards.has(card.id));
+                newMessage = "You found a set!"
                 if(displayNumber > 12) {
                     displayNumber -= 3
                 }
@@ -344,6 +349,7 @@ export default function CardReducer(state= {
             currentDeck: newDeck,
             displaySize: displayNumber,
             selectedCards: newSelectedCards,
+            message: newMessage
         }
     } else if (action.type === "autoDraw") {
         console.log("autoDraw")

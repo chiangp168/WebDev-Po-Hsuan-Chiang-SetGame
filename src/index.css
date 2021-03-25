@@ -13,17 +13,15 @@ code {
 }
 
 .AppContainer {
-  overflow: auto;
-  white-space: nowrap;
+  align-items: center;
 }
 
 .CardContainer {
   width: 1000px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  /* border: 1px solid black; */
+  margin: 0 auto;
 }
 
 .CardContainer > *{
@@ -38,7 +36,6 @@ code {
 .noneSelectedCard {
   width: 320px;
   height: 150px;
-  /* margin: 10px 10px 10px 10px; */
   border: 2px solid grey;
   display: flex;
   align-items: center;
@@ -52,7 +49,6 @@ code {
 .selectedCard {
   width: 320px;
   height: 150px;
-  /* margin: 5px 5px 5px 5px; */
   border: 2px solid grey;
   background-color: rgba(228, 225, 225, 0.849);
   display: flex;
@@ -85,4 +81,57 @@ h1 {
 .paragraph {
   width: 70%;
   margin: 30px auto;
+}
+
+.header > h3{
+  color: grey;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 414px) {
+  .CardContainer {
+    width: 360px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+
+  .cardWrap {
+    width: 100px;
+    height: 300px;
+  }
+
+  .noneSelectedCard {
+    width: 100px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .selectedCard {
+    width: 100px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(228, 225, 225, 0.849);
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  svg {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin:3px 3px 3px 3px;
+  }
 }

@@ -15,7 +15,8 @@ export default class Rule extends React.Component {
                         <h1>Game Rules</h1>
                 </div>
                 <div className="paragraph">
-                    <div className="lead">The goal of this game is to identify a 'Set' of three cards from the 12 cards displayed and until the whole deck of cards are finished. 
+                    <div className="lead">The goal of this game is to identify a 'Set' of three cards from the 12 cards displayed. There might be unmatch cards at the end
+                        of the game. 
                         Each card has a variation of the following four features:
                         <div>
                             <ol>
