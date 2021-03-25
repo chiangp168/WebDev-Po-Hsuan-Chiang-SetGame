@@ -308,7 +308,6 @@ export default function CardReducer(state= {
             displaySize: state.displaySize + 3
         }
     } else if (action.type === "checkCount"){
-        console.log("checkCount")
         let newDeck = [...state.currentDeck]
         let newCount = state.numOfSelectedCards
         let displayNumber = state.displaySize
@@ -352,7 +351,6 @@ export default function CardReducer(state= {
             message: newMessage
         }
     } else if (action.type === "autoDraw") {
-        console.log("autoDraw")
         let newDisplaySize = state.displaySize
         if(state.gameLevel === 2) {
             let hasSet = false
@@ -388,17 +386,14 @@ export default function CardReducer(state= {
                         
                     }
                 }
-                console.log("no set")
                 newDisplaySize += 3 
             }
-            console.log("0 set possible")
             return {
                 ...state,
                 displaySize: newDisplaySize,
                 gameFinished: true
             }
         } else {
-            console.log("is there a set?")
             let hasSet = false
             while(!hasSet && newDisplaySize < 81) {
                 let currentDisplay = state.currentDeck.slice(0, newDisplaySize)
@@ -433,7 +428,6 @@ export default function CardReducer(state= {
                 }
                 newDisplaySize += 3 
             }
-            console.log("0 set possible")
             return {
                 ...state,
                 gameFinished: true

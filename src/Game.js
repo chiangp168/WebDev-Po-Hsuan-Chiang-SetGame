@@ -58,20 +58,20 @@ class Game extends React.Component {
     })
     if(!this.props.gameFinished){
       return (
-        <div className="AppContainer">
+        <div className="appContainer">
           <Navbar/>
           <FeatureBtn/>
           <div className="header">
             <h3>{this.props.message}</h3>
           </div>
-          <div className='CardContainer'>
+          <div className='cardContainer'>
             {oneValue}
           </div>
         </div>
       );
     }else{
       return (
-        <div className="AppContainer">
+        <div className="appContainer">
           <Navbar/>
           <FeatureBtn/>
           <div className="header">

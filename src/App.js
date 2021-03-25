@@ -148,7 +148,7 @@ let mapStateToProps = function(state, props) {
     }
   }
   
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
+export default connect(
+mapStateToProps,
+mapDispatchToProps
+)(App)

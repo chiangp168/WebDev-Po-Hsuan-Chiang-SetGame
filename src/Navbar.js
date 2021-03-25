@@ -11,26 +11,21 @@ class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark d-flex justify-content-center">
-                {/* <form className="form-inline"> */}
-                    
-                        <div className="p-2">
-                            <Link to="/">
-                                <button className="btn btn-outline-light" type="button">Main</button>
-                            </Link>
-                        </div>
-                        <div className="p-2">
-                            <Link to="/game">
-                                <button className="btn btn-outline-light" type="button" onClick={() => {this.newGame();}}>New Game</button>
-                            </Link>
-                        </div>
-                        <div className="p-2">
-                            <Link to="/rule">
-                                <button className="btn btn-outline-light" type="button">Rule</button>
-                            </Link>
-                        </div>
-                        
-                    
-                {/* </form> */}
+                <div className="p-2">
+                    <Link to="/">
+                        <button className="btn btn-outline-light" type="button">Main</button>
+                    </Link>
+                </div>
+                <div className="p-2">
+                    <Link to="/game">
+                        <button className="btn btn-outline-light" type="button" onClick={() => {this.newGame();}}>New Game</button>
+                    </Link>
+                </div>
+                <div className="p-2">
+                    <Link to="/rule">
+                        <button className="btn btn-outline-light" type="button">Rule</button>
+                    </Link>
+                </div>
             </nav>
         )
     }
